@@ -16,9 +16,12 @@ public class WeatherApp {
     public static JSONObject getWeatherData(String locationName) {
         JSONArray locationData = getLocationData(locationName);
         // Retrieve the first matching location object
+
         JSONObject location = (JSONObject) locationData.get(0);
         double latitude = (double) location.get("latitude");
         double longitude = (double) location.get("longitude");
+        String country = (String) location.get("country");
+        String name = (String) location.get("name");
 
         // Build URL for weather forecast API with selected parameters
         String urlString = "https://api.open-meteo.com/v1/forecast?latitude=" + latitude + "&longitude=" + longitude
@@ -70,6 +73,8 @@ public class WeatherApp {
             weatherData.put("weather_condition", weatherCondition);
             weatherData.put("humidity", humidity);
             weatherData.put("windspeed", windspeed);
+            weatherData.put("country", country);
+            weatherData.put("name", name);
 
             return weatherData;
         } catch (Exception e) {

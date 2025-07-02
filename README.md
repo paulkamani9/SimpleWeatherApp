@@ -20,11 +20,10 @@ A sleek Java Swing GUI application that shows real-time weather information for 
 
 ---
 
-## 🖥 Screenshots
+## 🖥 Screenshot
 
-| Search | Weather Info |
-|--------|--------------|
-| ![Search Screenshot](assets/search_screenshot.png) | ![Weather Screenshot](assets/weather_screenshot.png) |
+
+![Search Screenshot](src/assets/search_screenshot.png)
 
 ---
 

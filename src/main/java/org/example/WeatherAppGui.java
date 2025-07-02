@@ -134,6 +134,10 @@ public class WeatherAppGui extends JFrame {
                 double windspeed = (double) weatherData.get("windspeed");
                 windSpeedText.setText("<html><b>WindSpeed</b> " + windspeed + "km/h</html>");
 
+                // update location
+                String location = (String) weatherData.get("name") + "\n" + (String) weatherData.get("country");
+                locationLabel.setText(location);
+
 
             }
         });
