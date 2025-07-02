@@ -12,27 +12,27 @@ import java.io.File;
 import java.io.IOException;
 
 public class WeatherAppGui extends JFrame {
-    private JSONObject weatherData;
+    private JSONObject weatherData; // Holds the fetched weather data
 
     public WeatherAppGui() {
         super("Weather App");
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE); // Closes app on exit
 
-        setSize(450, 650);
-        setLocationRelativeTo(null);
+        setSize(450, 650); // Sets the size of the window
+        setLocationRelativeTo(null); // Centers the window
 
-        setLayout(null);
+        setLayout(null); // Using absolute positioning
 
-        setResizable(false);
+        setResizable(false); // Disable resizing
 
-        addGuiComponents();
+        addGuiComponents(); // Call method to add components
 
     }
 
     // to add components
     private void addGuiComponents() {
-        //search field
+        // Search text field for user input
         JTextField searchTextField = new JTextField();
         searchTextField.setBounds(15, 15, 351, 45);
 
@@ -40,55 +40,53 @@ public class WeatherAppGui extends JFrame {
 
         add(searchTextField);
 
-        // location label
+        // Label to show current location
         JLabel locationLabel =  new JLabel("Search a location above");
         locationLabel.setBounds(0, 75, 450, 54);
         locationLabel.setFont(new Font("Dialog",Font.BOLD, 24));
         locationLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(locationLabel);
 
-        // weather image
+        // Image label for weather condition icon
         JLabel weatherConditionImage = new JLabel(loadImage("src/assets/cloudy.png"));
         weatherConditionImage.setBounds(0, 125, 450, 217);
         add(weatherConditionImage);
 
-        // temperature text
+        // Label to display temperature
         JLabel temperatureText = new JLabel("_ _ C");
         temperatureText.setBounds(0, 350, 450, 54);
         temperatureText.setFont(new Font("Dialog", Font.BOLD, 48));
         temperatureText.setHorizontalAlignment(SwingConstants.CENTER);
         add(temperatureText);
 
-        // weather conditions description
+        // Label to describe weather condition
         JLabel weatherConditionsDesc = new JLabel("Cloudy");
         weatherConditionsDesc.setBounds(0, 405, 450, 36);
         weatherConditionsDesc.setFont(new Font("Dialog", Font.PLAIN, 32));
         weatherConditionsDesc.setHorizontalAlignment(SwingConstants.CENTER);
         add(weatherConditionsDesc);
 
-        // humidity image
+        // Humidity image and text
         JLabel humidityImage = new JLabel(loadImage("src/assets/humidity.png"));
         humidityImage.setBounds(15, 500, 74, 66);
         add(humidityImage);
 
-        // humidity text
         JLabel humidityText = new JLabel("<html><b>Humidity</b> __%</html>");
         humidityText.setBounds(90, 500, 85, 55);
         humidityText.setFont(new Font("Dialog", Font.PLAIN, 16));
         add(humidityText);
 
-        // windSpeed image
+        // Windspeed image and text
         JLabel windSpeedImage = new JLabel(loadImage("src/assets/windspeed.png"));
         windSpeedImage.setBounds(220, 500, 74, 66);
         add(windSpeedImage);
 
-        // windSpeed text
-        JLabel windSpeedText = new JLabel("<html><b>Windspeed</b> __km/h</html>");
+        JLabel windSpeedText = new JLabel("<html><b>WindSpeed</b> __km/h</html>");
         windSpeedText.setBounds(310, 500, 85, 55);
         windSpeedText.setFont(new Font("Dialog", Font.PLAIN, 16));
         add(windSpeedText);
 
-        //search button
+        // Search button triggers fetching and updating weather data
         JButton searchButton = new JButton(loadImage("src/assets/search.png"));
 
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -102,9 +100,8 @@ public class WeatherAppGui extends JFrame {
                 weatherData = WeatherApp.getWeatherData(userInput);
 
 
-                // update gui
+                // Update weather condition image based on fetched data
 
-                // weather image
                 String weatherCondition = (String) weatherData.get("weather_condition");
 
                 switch(weatherCondition){
@@ -122,14 +119,18 @@ public class WeatherAppGui extends JFrame {
                         break;
                 }
 
+                // Update temperature
                 double temperature = (double) weatherData.get("temperature");
                 temperatureText.setText(temperature + " C");
 
+                // Update description
                 weatherConditionsDesc.setText(weatherCondition);
 
+                // Update humidity
                 long humidity = (long) weatherData.get("humidity");
                 humidityText.setText("<html><b>Humidity</b> " + humidity + "%</html>");
 
+                // Update windspeed
                 double windspeed = (double) weatherData.get("windspeed");
                 windSpeedText.setText("<html><b>WindSpeed</b> " + windspeed + "km/h</html>");
 
@@ -141,7 +142,7 @@ public class WeatherAppGui extends JFrame {
 
     }
 
-    // to add images to our gui components
+    // Loads an image from file and returns as ImageIcon
     private ImageIcon loadImage(String assetPath) {
         try {
             BufferedImage image = ImageIO.read(new File(assetPath));
